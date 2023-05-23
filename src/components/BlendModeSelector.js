@@ -12,7 +12,6 @@ function BlendModeSelector(props) {
         "destination-in",
         "destination-out", 
         "lighter", 
-        "hardlight",
         "copy", 
         "xor"
     ];

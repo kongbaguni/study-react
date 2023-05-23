@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import BlendModeSelector from "./components/BlendModeSelector";
 import BlurController from "./components/BlurController";
+import ColorPicker from "./components/ColorPicker";
 
 function KCanvasView(props) {
     const [units, setUnits] = useState([]);
@@ -16,7 +17,6 @@ function KCanvasView(props) {
            },10);
         setStateInterval(int);
        }
-
     })
 
     const addUnits = () => {
@@ -117,13 +117,19 @@ function KCanvasView(props) {
                 ctx.globalCompositeOperation = value;               
             }} />
 
-            <BlurController min={0} max={100} default={0} callback = {(value)=> {
+            <BlurController min={0} max={20} default={0} callback = {(value)=> {
                 const canvas = document.getElementById(props.canvasid);
                 const ctx = canvas.getContext('2d');
                 const blurtxt = 'blur('+value+'px)';
                 console.log(blurtxt);
                 ctx.filter = blurtxt; 
             }} />  
+
+            <ColorPicker title = "background" color = {"#ffffff"} callback = {(color) => {
+                const canvas = document.getElementById(props.canvasid);
+                canvas.style.backgroundColor = color;
+                console.log(color);
+            }} />
             <canvas width={props.width} height={props.height} id={props.canvasid}></canvas>
             <p>
             <button onClick={addUnits}>addUnit</button>
