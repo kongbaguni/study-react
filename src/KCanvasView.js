@@ -6,25 +6,28 @@ import ColorPicker from "./components/ColorPicker";
 function KCanvasView(props) {
     const [units, setUnits] = useState([]);
     const [unitCount, setUnitCount] = useState(0); 
-    const [stateInterval, setStateInterval] = useState(null);
-    let filterValues = {
-    blur        : 'blur(0px)', 
-    contrast    : 'contrast(100%)', 
-    invert      : 'invert(0%)', 
-    saturate    : 'saturate(100%)',
-    sepia       : 'sepia(0%)',
-    }
+    const [speed, setSpeed] = useState(1.0);
+    const [blendMode, setBlendMode] = useState('sorce-over');
+    const [filterValues, setFilterValues] = useState({
+        blur        : 'blur(0px)', 
+        contrast    : 'contrast(100%)', 
+        invert      : 'invert(0%)', 
+        saturate    : 'saturate(100%)',
+        sepia       : 'sepia(0%)',
+    })
+
     const getFilterTxt = () => {
         return filterValues.blur + ' ' + filterValues.contrast + ' ' + filterValues.invert + ' ' + filterValues.saturate + ' ' + filterValues.sepia;
     }
+
     let drawCount = 0;
     useEffect(()=> {
        draw();
-       if(stateInterval == null) {
         const int = setInterval(()=> {
             draw();
-           },10);
-        setStateInterval(int);
+        },1000 / 60);  
+        return () => {
+            clearInterval(int);
        }
     })
 
@@ -88,14 +91,16 @@ function KCanvasView(props) {
         if(canvas.getContext) {
             const ctx = canvas.getContext('2d');
             ctx.clearRect(0,0,props.width,props.height);
+            ctx.globalCompositeOperation = blendMode;
+            ctx.filter = getFilterTxt();
             for(var i = 0; i < units.length; i++) {
                 const u = units[i];
                 ctx.fillStyle = u.color;
                 ctx.beginPath();
                 ctx.arc(u.center.x, u.center.y, u.range, 0, 2 * Math.PI)
                 ctx.fill();
-                u.center.x += u.movement.x;
-                u.center.y += u.movement.y;
+                u.center.x += u.movement.x * speed;
+                u.center.y += u.movement.y * speed;
 
                 if(u.center.y + u.range + u.movement.y >= props.height || u.center.y < u.range - u.movement.y) {
                     u.movement.y *= -1;
@@ -121,55 +126,34 @@ function KCanvasView(props) {
         <article>
             <BlendModeSelector callback = {(value)=> {
                 console.log("new blend : " + value);
-                const canvas = document.getElementById(props.canvasid);
-                const ctx = canvas.getContext('2d');
-                ctx.globalCompositeOperation = value;               
+                setBlendMode(value);
             }} />
-
+            <RangePicker title="spped" min={1} max={20} default={1} unit = "배속" callback = {(value)=> {
+                setSpeed(value);
+            }} />
             <RangePicker title="blur" min={0} max={20} default={0} unit = "px" callback = {(value)=> {
-                const canvas = document.getElementById(props.canvasid);
-                const ctx = canvas.getContext('2d');
                 const blurtxt = 'blur('+value+'px)';
                 filterValues.blur =  blurtxt;
-                console.log(filterValues);
-                ctx.filter = getFilterTxt();
             }} />  
 
             <RangePicker title="contrast" min={0} max={100} default={100} unit = "%" callback = {(value)=> {
-                const canvas = document.getElementById(props.canvasid);
-                const ctx = canvas.getContext('2d');
                 const txt = 'contrast('+value+'%)';
                 filterValues.contrast = txt;
-                console.log(filterValues);
-                ctx.filter = getFilterTxt();
             }} />
 
             <RangePicker title="invert" min={0} max={100} default={0} unit = "%" callback = {(value)=> {
-               const canvas = document.getElementById(props.canvasid);
-               const ctx = canvas.getContext('2d');
                const txt = 'invert('+value+'%)';
                filterValues.invert = txt;
-               console.log(filterValues);
-               ctx.filter = getFilterTxt();
-
             }} />
 
             <RangePicker title="saturate" min={0} max={100} default={100} unit = "%" callback = {(value)=> {
-                const canvas = document.getElementById(props.canvasid);
-                const ctx = canvas.getContext('2d');
                 const txt = 'saturate('+value+'%)';
                 filterValues.saturate = txt;
-                console.log(filterValues);
-                ctx.filter = getFilterTxt();
             }} />
 
             <RangePicker title="sepia" min={0} max={100} default={0} unit = "%" callback = {(value)=> {
-                const canvas = document.getElementById(props.canvasid);
-                const ctx = canvas.getContext('2d');
                 const txt = 'sepia('+value+'%)';
                 filterValues.sepia = txt;
-                console.log(filterValues);
-                ctx.filter = getFilterTxt();
             }} />
 
             
