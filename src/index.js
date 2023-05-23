@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Test from './Test';
-import KCanvasView from './KCanvasView';
+import KCanvasView from './components/KCanvasView';
 import People from './People';
 import Navigation from './Navigation';
 
