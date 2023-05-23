@@ -1,13 +1,22 @@
 import { useEffect, useState } from "react";
 import BlendModeSelector from "./components/BlendModeSelector";
-import BlurController from "./components/BlurController";
+import RangePicker from "./components/RangePicker";
 import ColorPicker from "./components/ColorPicker";
 
 function KCanvasView(props) {
     const [units, setUnits] = useState([]);
     const [unitCount, setUnitCount] = useState(0); 
     const [stateInterval, setStateInterval] = useState(null);
- 
+    let filterValues = {
+    blur        : 'blur(0px)', 
+    contrast    : 'contrast(100%)', 
+    invert      : 'invert(0%)', 
+    saturate    : 'saturate(100%)',
+    sepia       : 'sepia(0%)',
+    }
+    const getFilterTxt = () => {
+        return filterValues.blur + ' ' + filterValues.contrast + ' ' + filterValues.invert + ' ' + filterValues.saturate + ' ' + filterValues.sepia;
+    }
     let drawCount = 0;
     useEffect(()=> {
        draw();
@@ -117,13 +126,53 @@ function KCanvasView(props) {
                 ctx.globalCompositeOperation = value;               
             }} />
 
-            <BlurController min={0} max={20} default={0} callback = {(value)=> {
+            <RangePicker title="blur" min={0} max={20} default={0} unit = "px" callback = {(value)=> {
                 const canvas = document.getElementById(props.canvasid);
                 const ctx = canvas.getContext('2d');
                 const blurtxt = 'blur('+value+'px)';
-                console.log(blurtxt);
-                ctx.filter = blurtxt; 
+                filterValues.blur =  blurtxt;
+                console.log(filterValues);
+                ctx.filter = getFilterTxt();
             }} />  
+
+            <RangePicker title="contrast" min={0} max={100} default={100} unit = "%" callback = {(value)=> {
+                const canvas = document.getElementById(props.canvasid);
+                const ctx = canvas.getContext('2d');
+                const txt = 'contrast('+value+'%)';
+                filterValues.contrast = txt;
+                console.log(filterValues);
+                ctx.filter = getFilterTxt();
+            }} />
+
+            <RangePicker title="invert" min={0} max={100} default={0} unit = "%" callback = {(value)=> {
+               const canvas = document.getElementById(props.canvasid);
+               const ctx = canvas.getContext('2d');
+               const txt = 'invert('+value+'%)';
+               filterValues.invert = txt;
+               console.log(filterValues);
+               ctx.filter = getFilterTxt();
+
+            }} />
+
+            <RangePicker title="saturate" min={0} max={100} default={100} unit = "%" callback = {(value)=> {
+                const canvas = document.getElementById(props.canvasid);
+                const ctx = canvas.getContext('2d');
+                const txt = 'saturate('+value+'%)';
+                filterValues.saturate = txt;
+                console.log(filterValues);
+                ctx.filter = getFilterTxt();
+            }} />
+
+            <RangePicker title="sepia" min={0} max={100} default={0} unit = "%" callback = {(value)=> {
+                const canvas = document.getElementById(props.canvasid);
+                const ctx = canvas.getContext('2d');
+                const txt = 'sepia('+value+'%)';
+                filterValues.sepia = txt;
+                console.log(filterValues);
+                ctx.filter = getFilterTxt();
+            }} />
+
+            
 
             <ColorPicker title = "background" color = {"#ffffff"} callback = {(color) => {
                 const canvas = document.getElementById(props.canvasid);

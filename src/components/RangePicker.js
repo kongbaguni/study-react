@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function BlurController(props) {
+function RangePicker(props) {
 
     const [value, setValue] = useState(props.default);
 
@@ -10,8 +10,8 @@ function BlurController(props) {
     }
 
     return (
-        <div> Blur : <input type="range" value={value} min={props.min} max={props.max} onChange={onChangeValue}/> { value } px </div>
+        <div> {props.title} : <input type="range" value={value} min={props.min} max={props.max} onChange={onChangeValue}/> { value } {props.unit} </div>
     )
 }
 
-export default BlurController
+export default RangePicker

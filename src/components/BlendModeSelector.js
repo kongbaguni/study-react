@@ -4,15 +4,15 @@ function BlendModeSelector(props) {
     const modes = [
         "source-over",
         "multiply",
-        "source-atop",
-        "source-in",
-        "source-out",
-        "destination-over",
-        "destination-atop", 
-        "destination-in",
-        "destination-out", 
+        // "source-atop",
+        // "source-in",
+        // "source-out",
+        // "destination-over",
+        // "destination-atop", 
+        // "destination-in",
+        // "destination-out", 
         "lighter", 
-        "copy", 
+        // "copy", 
         "xor"
     ];
     const [currentmode, setCurrentMode] = useState(modes[0]);
