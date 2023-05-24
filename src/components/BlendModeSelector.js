@@ -15,6 +15,7 @@ function BlendModeSelector(props) {
         // "copy", 
         "xor"
     ];
+    
     const [currentmode, setCurrentMode] = useState(modes[0]);
 
     const onChangeValue = (mode) => {
