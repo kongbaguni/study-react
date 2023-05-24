@@ -248,7 +248,7 @@ function KCanvasView(props) {
     </>
     );
     return (
-        <article>
+        <div className="canvas">
             <p>
             <ToggleButton on="open" off="close" default={isControllerOpen ? "true" : "false"} callback = {(isOn)=> {
                 console.log("isOn : " + isOn + " : " + isControllerOpen);
@@ -262,7 +262,7 @@ function KCanvasView(props) {
             {unitCount <= 10 ? "10개 이하":"10개 초과"}
             </p>
             <p>아이템 개수 : {[unitCount]}개</p>
-        </article>
+        </div>
     )
 }
 

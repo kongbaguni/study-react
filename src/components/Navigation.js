@@ -1,9 +1,11 @@
+import { Link } from "react-router-dom"
+
 function Navigation(props) {
     return (
         <nav>
             <ul>
                 {props.datas.map((data) => 
-                <li key={data.id}><a href={data.url}>{data.title}</a></li>
+                <li key={data.id}><Link to={data.url}>{data.title}</Link></li>
                 )}
                 
             </ul>
