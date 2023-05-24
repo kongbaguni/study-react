@@ -285,6 +285,7 @@ function KCanvasView(props) {
     return (
         <div className="canvas">
             <p>
+                
             <ToggleButton on="open" off="close" default={isControllerOpen ? "true" : "false"} callback = {(isOn)=> {
                 console.log("isOn : " + isOn + " : " + isControllerOpen);
                 setIsControllerOpen(isOn);
