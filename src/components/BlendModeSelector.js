@@ -13,7 +13,7 @@ function BlendModeSelector(props) {
         // "destination-out", 
         "lighter", 
         // "copy", 
-        
+
         "xor"
     ];
 
@@ -21,6 +21,7 @@ function BlendModeSelector(props) {
 
     const onChangeValue = (mode) => {
         setCurrentMode(mode);
+        
         props.callback(mode);
     }
     
