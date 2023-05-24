@@ -26,7 +26,7 @@ function BlendModeSelector(props) {
     }
     
     return (
-        <div className="blend">blend&nbsp;:&nbsp;
+        <div className="blend">
             {
                 modes.map((mode)=>
                     <button key={mode} className = {mode == currentmode ? 'on' : 'off'} onClick={(e) => onChangeValue(mode)}>{mode}</button>

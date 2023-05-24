@@ -176,21 +176,46 @@ function KCanvasView(props) {
 
     const dropSadowPanner = (
         <>
-            <ColorPicker title = "Drop Shadow" color = {dropShadowColor} callback = {(color) => {
-                setDropShadowColor(color);
-            }} />
+        <table>
+            <tbody>
+                <tr>
+                    <th>Drop Shadow</th>
+                    <td><ColorPicker title = "Drop Shadow" color = {dropShadowColor} callback = {(color) => {
+                        setDropShadowColor(color);
+                    }} />   
+                    </td>
+                </tr>
+                <tr>
+                    <th>offset x</th>
+                    <td>
+                        <RangePicker title = "Drop Shadow offset x" min={-30} max={30} unit="px" default={dropshadowOffsetX} callback = {(value) => {
+                            setDropShadowOffsetX(value);
+                        }} />
+                    </td>
+                </tr>
+                <tr>
+                    <th>offset y</th>
+                    <td>
+                    <RangePicker title = "Drop Shadow offset y" min={-30} max={30} unit="px" default={dropShadowOffsetY} callback = {(value) => {
+                        setDropShadowOffsetY(value);
+                    }} />
+                    </td>
+                </tr>
+                <tr>
+                    <th>blur range</th>
+                    <td>
+                    <RangePicker title = "Drop Shadow blur range " min={0} max={30} unit="px" default={dropShadowBlurRadius}  callback = {(value) => {
+                        setDropShadowBlurRadios(value);
+                    }} />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+            
 
-            <RangePicker title = "Drop Shadow offset x" min={-30} max={30} unit="px" default={dropshadowOffsetX} callback = {(value) => {
-                setDropShadowOffsetX(value);
-            }} />
+            
 
-            <RangePicker title = "Drop Shadow offset y" min={-30} max={30} unit="px" default={dropShadowOffsetY} callback = {(value) => {
-                setDropShadowOffsetY(value);
-            }} />
 
-            <RangePicker title = "Drop Shadow blur range " min={0} max={30} unit="px" default={dropShadowBlurRadius}  callback = {(value) => {
-                setDropShadowBlurRadios(value);
-            }} />
 
         </>
     )    
@@ -212,91 +237,115 @@ function KCanvasView(props) {
     )
 
     const controller = (<>
-            <ToggleButton on="pause" off="resume" default = "true" callback = {(isOn) => {
-                console.log(isOn);
-                setIsPause(isOn);
-            }} />
-
-            <Checkbox title="chang color when bound" callback = {(value)=> {
-                setIsChangeColorWhenBound(value);
-            }} />
-
-            <BlendModeSelector callback = {(value)=> {
-                console.log("new blend : " + value);
-                setBlendMode(value);
-            }} />
-            <RangePicker title="spped" min={1} max={20} default={1} unit = "배속" callback = {(value)=> {
+    <table>
+        <tbody>
+            <tr>
+                <th>blend mode</th>
+                <td><BlendModeSelector callback = {(value)=> {
+                    console.log("new blend : " + value);
+                    setBlendMode(value);
+                }} />
+                </td>
+            </tr>
+            <tr>
+                <th>Speed</th>
+                <td>
+                <RangePicker min={1} max={20} default={1} unit = "배속" callback = {(value)=> {
                 setSpeed(value);
-            }} />
-            <RangePicker title="blur" min={0} max={20} default={0} unit = "px" callback = {(value)=> {
+                }} />
+                </td>
+            </tr>
+            <tr>
+                <th>blur</th>                
+                <td>
+                <RangePicker min={0} max={20} default={0} unit = "px" callback = {(value)=> {
                 const blurtxt = 'blur('+value+'px)';
                 filterValues.blur =  blurtxt;
             }} />  
-
-            <RangePicker title="contrast" min={0} max={100} default={100} unit = "%" callback = {(value)=> {
+                </td>
+            </tr>
+            <tr>
+                <th>contrast</th>
+                <td> <RangePicker min={0} max={100} default={100} unit = "%" callback = {(value)=> {
                 const txt = 'contrast('+value+'%)';
                 filterValues.contrast = txt;
-            }} />
-
-            <RangePicker title="invert" min={0} max={100} default={0} unit = "%" callback = {(value)=> {
+            }} /></td>
+            </tr>
+            <tr>
+                <th>invert</th>
+                <td>  <RangePicker min={0} max={100} default={0} unit = "%" callback = {(value)=> {
                const txt = 'invert('+value+'%)';
                filterValues.invert = txt;
-            }} />
-
-            <RangePicker title="saturate" min={0} max={100} default={100} unit = "%" callback = {(value)=> {
-                const txt = 'saturate('+value+'%)';
-                filterValues.saturate = txt;
-            }} />
-
-            <RangePicker title="sepia" min={0} max={100} default={0} unit = "%" callback = {(value)=> {
+            }} /></td>
+            </tr>
+            <tr>
+                <th>saturate</th>
+                <td>
+                    <RangePicker min={0} max={100} default={100} unit = "%" callback = {(value)=> {
+                        const txt = 'saturate('+value+'%)';
+                        filterValues.saturate = txt;
+                    }} />
+                </td>
+            </tr>
+            <tr>
+                <th>sepia</th>
+                <td>  
+                    <RangePicker  min={0} max={100} default={0} unit = "%" callback = {(value)=> {
                 const txt = 'sepia('+value+'%)';
                 filterValues.sepia = txt;
-            }} />    
-
-            <RangePicker title='opacity' min={0} max={100} default={100} unit="%" callback = {(value)=> {
+            }} />  </td>
+            </tr>
+            <tr>
+                <th>opacity</th>
+                <td>   <RangePicker  min={0} max={100} default={100} unit="%" callback = {(value)=> {
                 const txt = 'opacity('+value+'%)';
                 filterValues.opacity = txt;
 
-            }} />
-
-            <RangePicker title='hue-rotate' min={0} max={360} default={0} unit="deg" callback = {(value)=> {
+            }} /></td>
+            </tr>
+            <tr>
+                <th>hue-rotate</th>
+                <td> <RangePicker min={0} max={360} default={0} unit="deg" callback = {(value)=> {
                 const txt = 'hue-rotate('+value+'deg)';
                 filterValues.huerotate = txt;
-            }} />
-
-            <RangePicker title='brightness' min={0} max={100} default={100} unit="%" callback = {(value)=> {
+            }} /></td>
+            </tr>
+            <tr>
+                <th>brightness</th>
+                <td>      <RangePicker min={0} max={100} default={100} unit="%" callback = {(value)=> {
                 const txt = 'brightness('+value+'%)';
                 filterValues.brightness = txt;
             }} />
-            {
-                dropShadow
-            }
-
-            <ColorPicker title = "background" color = {backgroundColor} callback = {(color) => {                
-                console.log(color);
-                setBackgroundColor(color)
-            }} />
-
+            </td>
+            </tr>
+            <tr>
+                <th>backgroundColor</th>
+                <td>
+                <ColorPicker title = "background" color = {backgroundColor} callback = {(color) => {                
+                    console.log(color);
+                    setBackgroundColor(color)
+                }} />
+                </td>
+            </tr>
+         </tbody>
+    </table>
+            <Checkbox title="change color when bound" callback = {(value)=> {
+                setIsChangeColorWhenBound(value);
+            }} />     
+            {dropShadow}       
             <p>
-            <button onClick={addUnits}>addUnit</button> <button onClick={clearUnits}>clearUnits</button>
+            <ToggleButton on="pause" off="resume" default = "true" callback = {(isOn) => {
+                console.log(isOn);
+                setIsPause(isOn);
+            }} /> <button onClick={addUnits}>addUnit</button> <button onClick={clearUnits}>clearUnits</button>
             </p>
     </>
     );
     return (
         <div className="canvas">
-            <p>
-                
-            <ToggleButton on="open" off="close" default={isControllerOpen ? "true" : "false"} callback = {(isOn)=> {
-                console.log("isOn : " + isOn + " : " + isControllerOpen);
-                setIsControllerOpen(isOn);
-            }} />
-            </p>
-            {isControllerOpen ? controller : <div></div>}
+            {controller}
             
             <canvas width={props.width} height={props.height} id={props.canvasid}></canvas>
-            <p>
-            {unitCount <= 10 ? "10개 이하":"10개 초과"}
-            </p>
             <p>아이템 개수 : {[unitCount]}개</p>
 
             {(captureData.length > 0 && isRecording == false) ? <VidoePreview data = {captureData} width={300} height={300} /> : <></>} 

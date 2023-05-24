@@ -21,3 +21,7 @@ article article {
 a[aria-current] {
     font-weight: bold;
 }
+
+button.on {
+    background-color: yellow;
+}

@@ -10,7 +10,7 @@ function RangePicker(props) {
     }
 
     return (
-        <div> {props.title} : <input type="range" value={value} min={props.min} max={props.max} onChange={onChangeValue}/> { value } {props.unit} </div>
+        <div><input type="range" value={value} min={props.min} max={props.max} onChange={onChangeValue}/> { value } {props.unit} </div>
     )
 }
 
