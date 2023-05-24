@@ -75,6 +75,11 @@ function KCanvasView(props) {
         setCaptureData(captureData);
     } 
 
+    const clearRecord = () => {
+        setCaptureData([]);
+        setIsRecording(false);
+    }
+
     const addUnits = () => {
         const arr = units;
     
@@ -202,11 +207,11 @@ function KCanvasView(props) {
     const recording = (
         <>
         <button onClick={toggleIsRecording}>{isRecording ? "recording stop" : "recording start"}</button>
+        {captureData.length > 0 ? <button onClick={clearRecord}>clear Record</button> : <></>}
         </>
     )
 
     const controller = (<>
-            {recording}
             <ToggleButton on="pause" off="resume" default = "true" callback = {(isOn) => {
                 console.log(isOn);
                 setIsPause(isOn);
@@ -275,7 +280,6 @@ function KCanvasView(props) {
             <p>
             <button onClick={addUnits}>addUnit</button> <button onClick={clearUnits}>clearUnits</button>
             </p>
-
     </>
     );
     return (
@@ -295,6 +299,7 @@ function KCanvasView(props) {
             <p>아이템 개수 : {[unitCount]}개</p>
 
             {(captureData.length > 0 && isRecording == false) ? <VidoePreview data = {captureData} width={300} height={300} /> : <></>} 
+            <p>{recording}</p>
         </div>
     )
 }
