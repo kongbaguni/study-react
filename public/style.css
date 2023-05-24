@@ -16,3 +16,8 @@ article {
 article article {
     background-color: white;
 }
+
+
+a[aria-current] {
+    font-weight: bold;
+}

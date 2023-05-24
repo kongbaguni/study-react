@@ -4,8 +4,10 @@ import RangePicker from "./RangePicker";
 import ColorPicker from "./ColorPicker";
 import ToggleButton from "./ToggleButton";
 import Checkbox from "./CheckBox";
+import VidoePreview from "./VideoPreview";
 
 function KCanvasView(props) {
+    const [isRecording, setIsRecording] = useState(false);
     const [units, setUnits] = useState([]);
     const [unitCount, setUnitCount] = useState(0); 
     const [speed, setSpeed] = useState(1.0);
@@ -31,6 +33,8 @@ function KCanvasView(props) {
         brightness  : 'brightness(100%)' 
     })
 
+    const [captureData, setCaptureData] = useState([]);
+
     const getFilterTxt = () => {
         return filterValues.blur + ' ' 
         + filterValues.contrast + ' ' 
@@ -49,11 +53,27 @@ function KCanvasView(props) {
        draw();
         const int = setInterval(()=> {
             draw();
+            record();
         },1000 / 60);  
         return () => {
             clearInterval(int);
        }
     })
+
+    const record = ()=> {
+        if(isRecording == false) {
+            if(captureData.length > 0) {        
+                captureData.map(data=> {
+                    console.log(data);
+                });
+            }
+            return;
+        }
+        const canvas = document.getElementById(props.canvasid);
+        const data = canvas.toDataURL('image/webp');
+        captureData.push(data);
+        setCaptureData(captureData);
+    } 
 
     const addUnits = () => {
         const arr = units;
@@ -94,6 +114,10 @@ function KCanvasView(props) {
             units.pop();
         }
         setUnitCount(units.length);
+    }
+
+    const toggleIsRecording = (event)=> {
+        setIsRecording(!isRecording);
     }
 
     const draw = () => {
@@ -175,7 +199,14 @@ function KCanvasView(props) {
 
     )
 
+    const recording = (
+        <>
+        <button onClick={toggleIsRecording}>{isRecording ? "recording stop" : "recording start"}</button>
+        </>
+    )
+
     const controller = (<>
+            {recording}
             <ToggleButton on="pause" off="resume" default = "true" callback = {(isOn) => {
                 console.log(isOn);
                 setIsPause(isOn);
@@ -262,6 +293,8 @@ function KCanvasView(props) {
             {unitCount <= 10 ? "10개 이하":"10개 초과"}
             </p>
             <p>아이템 개수 : {[unitCount]}개</p>
+
+            {(captureData.length > 0 && isRecording == false) ? <VidoePreview data = {captureData} width={300} height={300} /> : <></>} 
         </div>
     )
 }
