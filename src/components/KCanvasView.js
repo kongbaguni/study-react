@@ -139,12 +139,7 @@ function KCanvasView(props) {
         }
     }
 
-    let status='shipping'
-    let tapUI = {
-        info:<p>상품정보</p>,
-        shipping:<p>배송관련</p>,
-        refound:<p>환불관련</p>
-    }
+
     const dropSadowPanner = (
         <>
             <ColorPicker title = "Drop Shadow" color = {dropShadowColor} callback = {(color) => {
@@ -257,7 +252,6 @@ function KCanvasView(props) {
             {unitCount <= 10 ? "10개 이하":"10개 초과"}
             </p>
             <p>아이템 개수 : {[unitCount]}개</p>
-            {tapUI[status]}
         </article>
     )
 }

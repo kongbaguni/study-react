@@ -17,7 +17,7 @@ function BlendModeSelector(props) {
     ];
     const [currentmode, setCurrentMode] = useState(modes[0]);
 
-    const onChange = (mode) => {
+    const onChangeValue = (mode) => {
         setCurrentMode(mode);
         props.callback(mode);
     }
@@ -26,7 +26,7 @@ function BlendModeSelector(props) {
         <div className="blend">blend&nbsp;:&nbsp;
             {
                 modes.map((mode)=>
-                    <button key={mode} className = {mode == currentmode ? 'on' : 'off'} onClick={(e) => onChange(mode)}>{mode}</button>
+                    <button key={mode} className = {mode == currentmode ? 'on' : 'off'} onClick={(e) => onChangeValue(mode)}>{mode}</button>
                 )
             }
         </div>

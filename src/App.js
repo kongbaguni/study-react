@@ -7,7 +7,6 @@ function App() {
     <div className='app'>
       <h1>react test</h1>
       <hr/>
-      aaa
     </div>
   );
 }

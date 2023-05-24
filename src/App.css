@@ -55,3 +55,7 @@ button.on {
 .blend button {
   margin: 5px;
 }
+
+.selected a {
+  background-color: yellow;
+}

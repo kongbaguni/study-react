@@ -7,6 +7,7 @@ import Test from './Test';
 import KCanvasView from './components/KCanvasView';
 import People from './People';
 import Navigation from './Navigation';
+import CommentList from './components/CommentList';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const naviData = [
@@ -38,7 +39,6 @@ root.render(
     <App />
     <Test />
     <KCanvasView width="300" height="200" canvasid="canvas1" />
-    <KCanvasView width="300" height="500" canvasid="canvas2" />
     <People data={{
       name:"홍길동",
       birthday:{
@@ -47,6 +47,8 @@ root.render(
         day:23,
       },
     }} />
+
+  <CommentList />
   </React.StrictMode>
 );
 
