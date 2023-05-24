@@ -147,7 +147,7 @@ function KCanvasView(props) {
             ctx.globalCompositeOperation = blendMode;
             ctx.filter = getFilterTxt() + (isApplyDropShadow ? 'drop-Shadow('+dropshadowOffsetX+'px '+dropShadowOffsetY+'px '+ dropShadowBlurRadius+'px '+dropShadowColor+' )' : '');
             ctx.fillStyle = backgroundColor;
-            ctx.fillRect(-100,-100,props.width+100,props.height+100);
+            ctx.fillRect(-200,-200,props.width+400,props.height+400);
             for(var i = 0; i < units.length; i++) {
                 const u = units[i];
                 ctx.fillStyle = u.color;
