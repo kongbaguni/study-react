@@ -19,6 +19,7 @@ function KCanvasView(props) {
     const [dropShadowColor, setDropShadowColor] = useState('#000000');
     const [dropShadowBlurRadius, setDropShadowBlurRadios] = useState(10);
     const [isApplyDropShadow, setIsApplyDropShadow] = useState(false);
+    const [isChangeColorWhenBound, setIsChangeColorWhenBound] = useState(false);
     const [filterValues, setFilterValues] = useState({
         blur        : 'blur(0px)', 
         contrast    : 'contrast(100%)', 
@@ -129,11 +130,15 @@ function KCanvasView(props) {
 
                 if(u.center.y + u.range + u.movement.y >= props.height || u.center.y < u.range - u.movement.y) {
                     u.movement.y *= -1;
-                    u.color = getNextColor(u.color);
+                    if(isChangeColorWhenBound) {
+                        u.color = getNextColor(u.color);
+                    }
                 }
                 if(u.center.x + u.range + u.movement.x >= props.width || u.center.x < u.range - u.movement.x) {
                     u.movement.x *= -1;
-                    u.color = getNextColor(u.color);
+                    if(isChangeColorWhenBound) {
+                        u.color = getNextColor(u.color);
+                    }
                 }           
             }
         }
@@ -175,6 +180,11 @@ function KCanvasView(props) {
                 console.log(isOn);
                 setIsPause(isOn);
             }} />
+
+            <Checkbox title="chang color when bound" callback = {(value)=> {
+                setIsChangeColorWhenBound(value);
+            }} />
+
             <BlendModeSelector callback = {(value)=> {
                 console.log("new blend : " + value);
                 setBlendMode(value);

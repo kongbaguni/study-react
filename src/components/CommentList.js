@@ -4,7 +4,7 @@ import CommentUpdateForm from "./CommentUpdateForm";
 
 
 function CommentList() {
-    const [mode, setMode] = useState('create');
+    const [mode, setMode] = useState('none');
     const [comments, setComments] = useState([{name:"123",comment:"kkk",id:0}])
     const [count, setCount] = useState(0);
     const [id, setId] = useState(null);
@@ -33,6 +33,11 @@ function CommentList() {
             console.log("id is null");
             return ;
         }
+        const c = window.confirm('다음 댓글을 삭제합니다.\n'+comments[id].name + ' : ' +comments[id].comment)
+        if(c==false) {
+            return;
+        }
+
         const list = comments;
         list.splice(id,1);
         for(let i = 0; i<list.length; i ++) {
@@ -66,7 +71,7 @@ function CommentList() {
             list[id].comment = data.comment;
             list[id].name = data.name;
             setComments(list);
-            setMode('create');
+            setMode('none');
         }} />
     }
     

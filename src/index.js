@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import Test from './Test';
 import KCanvasView from './components/KCanvasView';
 import People from './People';
-import Navigation from './Navigation';
+import Navigation from './components/Navigation';
 import CommentList from './components/CommentList';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -36,19 +36,8 @@ const naviData = [
 root.render(
   <React.StrictMode>
     <Navigation datas = {naviData} />
-    <App />
-    <Test />
     <KCanvasView width="300" height="200" canvasid="canvas1" />
-    <People data={{
-      name:"홍길동",
-      birthday:{
-        year:1972,
-        month:4,
-        day:23,
-      },
-    }} />
-
-  <CommentList />
+    <CommentList />
   </React.StrictMode>
 );
 
